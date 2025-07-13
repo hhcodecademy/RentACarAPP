@@ -14,6 +14,8 @@ namespace RentACarAPP.Persistance.DBContext
         public DbSet<Car> Cars { get; set; }
         public DbSet<CarModel> CarModels { get; set; }
         public DbSet<CarDocument> Documents { get; set; }
+        public DbSet<LogData> Logs { get; set; }
+
         // Add other DbSets as needed
     }
 }

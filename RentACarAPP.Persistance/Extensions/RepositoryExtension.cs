@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RentACarAPP.Domain.Entity;
 using RentACarAPP.Domain.Repository;
 using RentACarAPP.Persistance.Repository;
 
@@ -10,6 +11,9 @@ namespace RentACarAPP.Persistance.Extensions
         {
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+
+            services.AddSingleton<ILogDataRepository, LogDataRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
 
             return services;

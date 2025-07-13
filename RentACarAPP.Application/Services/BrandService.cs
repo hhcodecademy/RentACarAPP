@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RentACarAPP.Application.Exceptions;
 using RentACarAPP.Application.Validotor;
 using RentACarAPP.Contract.Dtos;
 using RentACarAPP.Contract.Services;
@@ -35,10 +36,14 @@ namespace RentACarAPP.Application.Services
 
         public async Task<bool> UploadImgAsync(int id, string filePath)
         {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new BadRequestException("File path cannot be null or empty.");
+            }
             var brand = await _brandRepository.GetByIdAsync(id);
             if (brand == null)
             {
-                throw new KeyNotFoundException($"Brand with ID {id} not found.");
+                throw new NotFoundException($"Brand with ID {id} not found.");
             }
 
             var isUploaded = await _brandRepository.UploadImgAsync(id, filePath);

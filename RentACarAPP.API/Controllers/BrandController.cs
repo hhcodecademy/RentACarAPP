@@ -74,42 +74,34 @@ namespace RentACarAPP.API.Controllers
         [HttpPost("upload-image/{id}")]
         public async Task<IActionResult> UploadImage(int id, FileUploadDto fileDto)
         {
-            try
-            {
-                if(fileDto == null)
-                {
-                    return BadRequest("File data is null");
-                }
-               var folder = _webHostEnvironment.WebRootPath + "/documents/brand/images";
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                var fileName = $"{Guid.NewGuid()}_{fileDto.Image.FileName}";
 
-                var filePath = Path.Combine(folder, fileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await fileDto.Image.CopyToAsync(stream);
-                }
-                
-
-                var isUploaded = await _brandService.UploadImgAsync(id, fileName);
-                if (!isUploaded)
-                {
-                    return BadRequest("Image upload failed.");
-                }
-
-                return Ok();
-            }
-            catch (KeyNotFoundException ex)
+            if (fileDto == null)
             {
-                return NotFound(ex.Message);
+                return BadRequest("File data is null");
             }
-            catch (Exception ex)
+            var folder = _webHostEnvironment.WebRootPath + "/documents/brand/images";
+            if (!Directory.Exists(folder))
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                Directory.CreateDirectory(folder);
             }
+            var fileName = $"{Guid.NewGuid()}_{fileDto.Image.FileName}";
+
+            var filePath = Path.Combine(folder, fileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await fileDto.Image.CopyToAsync(stream);
+            }
+
+
+            var isUploaded = await _brandService.UploadImgAsync(id, fileName);
+            if (!isUploaded)
+            {
+                return BadRequest("Image upload failed.");
+            }
+
+            return Ok();
+
+
         }
 
     }

@@ -13,6 +13,7 @@ namespace RentACarAPP.Application.Profiles
             CreateMap<Brand, BrandResponseDto>()
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.LogoUrl))
                 .ReverseMap();
+            CreateMap<LogData, LogDataDTO>().ReverseMap();
         }
     }
 }
