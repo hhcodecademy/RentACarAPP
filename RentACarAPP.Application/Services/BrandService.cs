@@ -11,12 +11,14 @@ namespace RentACarAPP.Application.Services
     public class BrandService : GenericService<Brand, BrandDTO>, IBrandService
     {
         private readonly IBrandRepository _brandRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BrandService(IBrandRepository repository, IMapper mapper, BrandValidator validator) : base(repository, mapper, validator)
+        public BrandService(IBrandRepository repository, IMapper mapper, IUnitOfWork unitOfWork) : base(repository, mapper, unitOfWork)
         {
             _brandRepository = repository;
+            _unitOfWork = unitOfWork;
         }
-        
+
         public async Task<IEnumerable<BrandResponseDto>> GetAllAsync()
         {
             var brands = await _brandRepository.GetAllAsync();

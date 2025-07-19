@@ -9,13 +9,10 @@ using RentACarAPP.Persistance.DBContext;
 
 namespace RentACarAPP.Persistance.Repository
 {
-    public class LogDataRepository : ILogDataRepository
+    public class LogDataRepository : GenericRepository<LogData>, ILogDataRepository
     {
-        private readonly RentACarDB _context;
-
-        public LogDataRepository(RentACarDB context)
+        public LogDataRepository(RentACarDB context) : base(context)
         {
-            _context = context;
         }
 
         public async Task AddAsync(LogData logData)

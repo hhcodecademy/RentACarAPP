@@ -13,13 +13,10 @@ using RentACarAPP.Domain.Repository;
 
 namespace RentACarAPP.Application.Services
 {
-    public class LogDataService : ILogDataService
+    public class LogDataService : GenericService<LogData, LogDataDTO>, ILogDataService
     {
-        private readonly ILogDataRepository _repository;
-
-        public LogDataService(ILogDataRepository repository)
+        public LogDataService(IGenericRepository<LogData> repository, IMapper mapper) : base(repository, mapper)
         {
-            _repository = repository;
         }
 
         public async Task AddAsync(LogDataDTO dto)

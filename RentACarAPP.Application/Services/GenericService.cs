@@ -11,13 +11,13 @@ namespace RentACarAPP.Application.Services
    where TDto : class
     {
         protected readonly IGenericRepository<TEntity> _repository;
+        private readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
-        private readonly IValidator<TDto> _validator;
-        public GenericService(IGenericRepository<TEntity> repository, IMapper mapper, IValidator<TDto> validator)
+        public GenericService(IGenericRepository<TEntity> repository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _validator = validator;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<TDto>> GetAllAsync()
@@ -40,14 +40,11 @@ namespace RentACarAPP.Application.Services
 
         public async Task<TDto> AddAsync(TDto dto)
         {
-            //var validationResult = await _validator.ValidateAsync(dto);
-            //if (!validationResult.IsValid)
-            //{
-            //    throw new ValidationException(validationResult.Errors);
-            //}
+           
             var entity = _mapper.Map<TEntity>(dto);
             var addedData = await _repository.AddAsync(entity);
             var reponseDto = _mapper.Map<TDto>(addedData);
+            await _unitOfWork.SaveChangesAsync();
             return reponseDto;
         }
 
@@ -56,12 +53,15 @@ namespace RentACarAPP.Application.Services
             var data = _mapper.Map<TEntity>(entity);
             var updatedData = await _repository.UpdateAsync(data);
             var dto = _mapper.Map<TDto>(updatedData);
+            await _unitOfWork.SaveChangesAsync();
             return dto;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            return await _repository.DeleteAsync(id);
+            await _repository.DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
         }
     }
 }

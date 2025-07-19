@@ -8,6 +8,7 @@ using RentACarAPP.Application.Validotor;
 using RentACarAPP.Persistance.DBContext;
 using RentACarAPP.Persistance.Extensions;
 using Serilog;
+using RentACarAPP.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<RentACarDB>(options =>
 
 builder.Services.AddRepositoryRegistration();
 builder.Services.AddServiceRegistration();
+builder.Services.AddInfrastructureServices();
 
 builder.Services.AddAutoMapper(typeof(CustomProfile));
 builder.Services.AddFluentValidationAutoValidation();

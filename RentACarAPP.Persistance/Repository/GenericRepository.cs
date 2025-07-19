@@ -7,7 +7,7 @@ namespace RentACarAPP.Persistance.Repository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity, new()
     {
-        protected readonly RentACarDB _context;
+        protected readonly RentACarDB  _context;
         private readonly DbSet<TEntity> _dbSet;
 
         public GenericRepository(RentACarDB context)
@@ -19,7 +19,6 @@ namespace RentACarAPP.Persistance.Repository
         public async Task<TEntity> AddAsync(TEntity entity)
         {
             var addedEntity = await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
 
 
@@ -34,7 +33,6 @@ namespace RentACarAPP.Persistance.Repository
             }
             entity.IsDeleted = true;
             _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
             return true;
         }
 
@@ -62,7 +60,6 @@ namespace RentACarAPP.Persistance.Repository
             }
             entity.UpdatedDate = DateTime.UtcNow;
             _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
     }

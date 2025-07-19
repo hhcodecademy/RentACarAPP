@@ -9,13 +9,11 @@ namespace RentACarAPP.Persistance.DBContext
         {
         }
 
-        // DbSet properties for your entities
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<CarModel> CarModels { get; set; }
         public DbSet<CarDocument> Documents { get; set; }
         public DbSet<LogData> Logs { get; set; }
 
-        // Add other DbSets as needed
     }
 }

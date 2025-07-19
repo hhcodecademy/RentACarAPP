@@ -11,10 +11,11 @@ namespace RentACarAPP.Persistance.Extensions
         {
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddSingleton<IGenericRepository<LogData>, GenericRepository<LogData>>();
 
-
-            services.AddSingleton<ILogDataRepository, LogDataRepository>();
+            //services.AddSingleton<ILogDataRepository, LogDataRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();  
 
             return services;
         }

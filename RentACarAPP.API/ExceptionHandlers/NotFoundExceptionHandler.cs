@@ -2,18 +2,19 @@
 using RentACarAPP.Application.Exceptions;
 using RentACarAPP.Contract.Dtos;
 using RentACarAPP.Contract.Services;
+using RentACarAPP.Domain.Entity;
 
 namespace RentACarAPP.API.ExceptionHandlers
 {
     public class NotFoundExceptionHandler : IExceptionHandler
     {
         private readonly ILogger<NotFoundExceptionHandler> _logger;
-        private readonly ILogDataService _logDataService;
+        private readonly IGenericService<LogData, LogDataDTO> _logDataService;
 
-        public NotFoundExceptionHandler(ILogger<NotFoundExceptionHandler> logger, ILogDataService logDataService)
+        public NotFoundExceptionHandler(ILogger<NotFoundExceptionHandler> logger, IGenericService<LogData,LogDataDTO> service)
         {
             _logger = logger;
-            _logDataService = logDataService;
+            _logDataService = service;
         }
 
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
