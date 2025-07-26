@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using RentACarAPP.Application.Exceptions;
 using RentACarAPP.Contract.Dtos;
-using RentACarAPP.Contract.Services;
-using RentACarAPP.Domain.Entity;
 
 namespace RentACarAPP.API.ExceptionHandlers
 {
     public class NotFoundExceptionHandler : IExceptionHandler
     {
         private readonly ILogger<NotFoundExceptionHandler> _logger;
-        private readonly IGenericService<LogData, LogDataDTO> _logDataService;
+        // private readonly IGenericService<LogData, LogDataDTO> _logDataService;
 
-        public NotFoundExceptionHandler(ILogger<NotFoundExceptionHandler> logger, IGenericService<LogData,LogDataDTO> service)
+        public NotFoundExceptionHandler(ILogger<NotFoundExceptionHandler> logger)
         {
             _logger = logger;
-            _logDataService = service;
+            //    _logDataService = service;
         }
 
         public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
@@ -30,13 +28,12 @@ namespace RentACarAPP.API.ExceptionHandlers
             var logData = new LogDataDTO
             {
                 Message = notFoundException.Message,
-               Level = Domain.Enum.LogLevel.Error,
-               Source=  httpContext.Request.Path,
+                Level = Domain.Enum.LogLevel.Error,
+                Source = httpContext.Request.Path,
                 RequestId = httpContext.TraceIdentifier,
 
             };
-            await _logDataService.AddAsync(logData);
-          
+
             return true;
         }
     }

@@ -15,7 +15,7 @@ namespace RentACarAPP.Persistance.Extensions
 
             //services.AddSingleton<ILogDataRepository, LogDataRepository>();
             services.AddScoped<IBrandRepository, BrandRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();  
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

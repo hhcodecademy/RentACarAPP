@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RentACarAPP.Domain.Enum;
+﻿using RentACarAPP.Domain.Enum;
 
 namespace RentACarAPP.Contract.Dtos
 {
-    public class LogDataDTO 
+    public class LogDataDTO
     {
         public LogLevel Level { get; set; }
 

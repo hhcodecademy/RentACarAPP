@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RentACarAPP.Contract.Dtos.External;
+﻿using RentACarAPP.Contract.Dtos.External;
 using RentACarAPP.Contract.Services;
 
 namespace RentACarAPP.Application.Services
@@ -45,8 +40,8 @@ namespace RentACarAPP.Application.Services
 
         public async Task<List<CarExternalDto>> GetAllCarsAsync()
         {
-                var cars = await _externalCarService.GetAllCarsAsync();
-                var carList = cars ?? new List<CarExternalDto>();
+            var cars = await _externalCarService.GetAllCarsAsync();
+            var carList = cars ?? new List<CarExternalDto>();
             return carList;
         }
     }

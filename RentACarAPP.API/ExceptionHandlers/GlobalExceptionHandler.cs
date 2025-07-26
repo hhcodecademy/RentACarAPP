@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 
 namespace RentACarAPP.API.ExceptionHandlers
 {
@@ -16,7 +15,7 @@ namespace RentACarAPP.API.ExceptionHandlers
             _logger.LogError(
             exception, "Exception occurred: {Message}", exception.Message);
 
-           
+
 
 
             return true;

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using RentACarAPP.Application.Exceptions;
-using RentACarAPP.Application.Validotor;
 using RentACarAPP.Contract.Dtos;
 using RentACarAPP.Contract.Services;
 using RentACarAPP.Domain.Entity;

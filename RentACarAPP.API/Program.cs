@@ -5,10 +5,10 @@ using RentACarAPP.API.ExceptionHandlers;
 using RentACarAPP.Application.Extensions;
 using RentACarAPP.Application.Profiles;
 using RentACarAPP.Application.Validotor;
+using RentACarAPP.Infrastructure.Extensions;
 using RentACarAPP.Persistance.DBContext;
 using RentACarAPP.Persistance.Extensions;
 using Serilog;
-using RentACarAPP.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +19,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<RentACarDB>(options =>
-    
-    options.UseSqlServer(builder.Configuration.GetConnectionString("RentACarApp")),ServiceLifetime.Singleton);
+
+    options.UseSqlServer(builder.Configuration.GetConnectionString("RentACarApp")), ServiceLifetime.Singleton);
 
 builder.Services.AddRepositoryRegistration();
 builder.Services.AddServiceRegistration();
@@ -34,8 +34,8 @@ builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
-builder.Services.AddExceptionHandler < NotFoundExceptionHandler > ();
-builder.Services.AddExceptionHandler < GlobalExceptionHandler>();
+builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();

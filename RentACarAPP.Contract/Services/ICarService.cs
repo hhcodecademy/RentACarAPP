@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RentACarAPP.Contract.Dtos.External;
+﻿using RentACarAPP.Contract.Dtos.External;
 
 namespace RentACarAPP.Contract.Services
 {

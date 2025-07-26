@@ -1,4 +1,5 @@
-﻿using RentACarAPP.Domain.Entity;
+﻿using RentACarAPP.Contract.Dtos.Paging;
+using RentACarAPP.Domain.Entity;
 
 namespace RentACarAPP.Contract.Services
 {
@@ -9,5 +10,6 @@ namespace RentACarAPP.Contract.Services
         Task<TDto> AddAsync(TDto entity);
         Task<TDto> UpdateAsync(TDto entity);
         Task<bool> DeleteAsync(int id);
+        Task<PageResponseDto<TDto>> GetAllPagedAsync(PagedOptionDTO option);
     }
 }

@@ -7,7 +7,7 @@ namespace RentACarAPP.Persistance.Repository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity, new()
     {
-        protected readonly RentACarDB  _context;
+        protected readonly RentACarDB _context;
         private readonly DbSet<TEntity> _dbSet;
 
         public GenericRepository(RentACarDB context)

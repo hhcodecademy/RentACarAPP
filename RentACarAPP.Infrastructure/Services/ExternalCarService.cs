@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 using RentACarAPP.Contract.Dtos.External;
 using RentACarAPP.Contract.Services;
 
@@ -12,6 +7,7 @@ namespace RentACarAPP.Infrastructure.Services
     public class ExternalCarService : IExternalCarService
     {
         private readonly HttpClient _httpClient;
+
 
         public ExternalCarService(HttpClient httpClient)
         {

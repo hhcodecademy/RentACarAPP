@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentACarAPP.Contract.Dtos;
+using RentACarAPP.Contract.Dtos.Paging;
 using RentACarAPP.Contract.Services;
 
 namespace RentACarAPP.API.Controllers
@@ -103,6 +103,17 @@ namespace RentACarAPP.API.Controllers
 
 
         }
+        [HttpGet("paged/{pageNumber}/{pageSize}")]
+        public async Task<IActionResult> GetPagedBrands(int pageNumber, int pageSize)
+        {
+            var option = new PagedOptionDTO
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+            var brands = await _brandService.GetAllPagedAsync(option);
+            return Ok(brands);
+        }
 
-    }
+        }
 }

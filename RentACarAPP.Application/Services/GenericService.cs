@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using FluentValidation;
+using RentACarAPP.Contract.Dtos;
+using RentACarAPP.Contract.Dtos.Paging;
 using RentACarAPP.Contract.Services;
 using RentACarAPP.Domain.Entity;
 using RentACarAPP.Domain.Repository;
@@ -11,7 +12,7 @@ namespace RentACarAPP.Application.Services
    where TDto : class
     {
         protected readonly IGenericRepository<TEntity> _repository;
-        private readonly IUnitOfWork _unitOfWork;
+        protected readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
         public GenericService(IGenericRepository<TEntity> repository, IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -40,7 +41,7 @@ namespace RentACarAPP.Application.Services
 
         public async Task<TDto> AddAsync(TDto dto)
         {
-           
+
             var entity = _mapper.Map<TEntity>(dto);
             var addedData = await _repository.AddAsync(entity);
             var reponseDto = _mapper.Map<TDto>(addedData);
@@ -62,6 +63,25 @@ namespace RentACarAPP.Application.Services
             await _repository.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<PageResponseDto<TDto>> GetAllPagedAsync(PagedOptionDTO option)
+        {
+            var query = await _repository.GetAllAsync();
+            var totalCount = query.Count();
+            var items = query
+                .Skip((option.PageNumber - 1) * option.PageSize)
+                .Take(option.PageSize)
+                .ToList();
+            var pagedDto = new PageResponseDto<TDto>
+            {
+                TotalCount = totalCount,
+                PageNumber = option.PageNumber,
+                PageSize = items.Count,
+                TotalPages = (int)Math.Ceiling((double)totalCount / option.PageSize),
+                Items = _mapper.Map<List<TDto>>(items)
+            };
+            return pagedDto;
         }
     }
 }
